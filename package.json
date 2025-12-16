@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "readonly:check": "powershell -ExecutionPolicy Bypass -File scripts/read-only-check.ps1"
   },
   "dependencies": {
     "next": "16.0.10",

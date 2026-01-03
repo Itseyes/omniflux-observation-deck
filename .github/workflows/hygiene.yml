@@ -1,0 +1,29 @@
+name: Hygiene
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for tracked build artifacts
+        run: |
+          git ls-files | grep -E '(^|/)dist/|(^|/)\.next/|(^|/)node_modules/' && { echo 'Build artifacts must not be tracked.'; exit 1; } || true
+      - name: Check for tracked env files
+        run: |
+          git ls-files | grep -E '\.env($|\.)' | grep -vE '\.env\.example$' && { echo 'Tracked env files found (not allowed).'; exit 1; } || true
+      - name: Check for multiple lockfiles
+        run: |
+          ls pnpm-lock.yaml package-lock.json yarn.lock 2>/dev/null | wc -l | grep -q '^1$' || { echo 'Multiple lockfiles detected.'; exit 1; }
+      - name: Warn if docs missing sections
+        run: |
+          for f in README.md STATUS.md SECURITY.md; do
+            [ -f "$f" ] || { echo "Warning: $f missing."; continue; }
+            grep -qiE 'observer|read-only|authority|boundary' "$f" || echo "Warning: $f missing required sections."
+          done
+        continue-on-error: true

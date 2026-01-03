@@ -1,0 +1,17 @@
+{
+  "repoName": "omniflux-observation-deck",
+  "classification": "OBSERVER",
+  "private": true,
+  "authorityBoundary": {
+    "must": [
+      "Read from immutable sources only",
+      "Enforce GET-only API routes",
+      "No secrets in git"
+    ],
+    "mustNot": [
+      "Mutate, trigger, or replay state",
+      "Expose credentials",
+      "Write to DB or filesystem"
+    ]
+  }
+}

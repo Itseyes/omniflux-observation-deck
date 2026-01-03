@@ -58,8 +58,11 @@ export default function DeckPage() {
       try {
         const initial = await fetchEvents({ limit: 100 });
         if (!cancelled) setEvents(initial.sort((a, b) => (a.ts < b.ts ? 1 : -1)));
-      } catch (e: any) {
-        if (!cancelled) setError(e?.message ?? "Failed to load events");
+      } catch (e: unknown) {
+        if (!cancelled) {
+          const msg = e instanceof Error ? e.message : "Failed to load events";
+          setError(msg);
+        }
       }
     }
 
@@ -83,8 +86,9 @@ export default function DeckPage() {
           const merged = [...fresh.filter((f) => !seen.has(f.id)), ...prev];
           return merged.sort((a, b) => (a.ts < b.ts ? 1 : -1));
         });
-      } catch (e: any) {
-        setError(e?.message ?? "Polling error");
+      } catch (e: unknown) {
+        const msg = e instanceof Error ? e.message : "Polling error";
+        setError(msg);
       }
     }, 2500);
 

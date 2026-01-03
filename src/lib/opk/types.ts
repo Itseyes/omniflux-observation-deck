@@ -27,7 +27,7 @@ export type OpkEvent = {
   health_state?: "HEALTHY" | "INEFFICIENT" | "TOXIC" | "UNKNOWN";
 
   summary: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
   tags?: string[];
 };
 
@@ -41,7 +41,17 @@ export type GraveyardVerdict = {
   origin_id?: string;
   job_id?: string;
 
-  payload?: Record<string, any>;
-  raw_event?: Record<string, any>;
+  payload?: Record<string, unknown>;
+  raw_event?: Record<string, unknown>;
   tags?: string[];
 };
+
+export type HealthStatus = "ALIVE" | "STRUGGLING" | "DEAD";
+
+export interface HealthEntity {
+  id: string;
+  kind: "origin" | "job" | "agent";
+  status: HealthStatus;
+  cause: string;
+  lastSeen: string; // ISO timestamp
+}

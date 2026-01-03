@@ -1,3 +1,25 @@
+
+Observation Deck is a read-only observability surface for OmniFlux.
+
+**Observation Deck uses GET-only read endpoints. No mutation verbs are permitted.**
+
+## Not a Control Panel
+- Must never issue commands
+- Must never mutate state
+- Must never replay history
+
+## Data Sources
+- Reads only from audit log/event stream and read-only APIs
+- Uses only read-only endpoints and credentials
+
+## Relationships
+- **Kernel**: sovereign law
+- **Sentinel**: observer
+- **Gateway**: router
+- **Ground Control**: operator
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const nav = [
   { href: "/deck", label: "Live Feed" },
   { href: "/graveyard", label: "Graveyard" },
+  { href: "/health", label: "Health Wall" },
 ];
 
 export function SideNav() {

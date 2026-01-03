@@ -39,8 +39,11 @@ export default function GraveyardPage() {
       try {
         const v = await fetchGraveyard();
         if (!cancelled) setVerdicts(v.sort((a, b) => (a.ts < b.ts ? 1 : -1)));
-      } catch (e: any) {
-        if (!cancelled) setError(e?.message ?? "Failed to load graveyard");
+      } catch (e: unknown) {
+        if (!cancelled) {
+          const msg = e instanceof Error ? e.message : "Failed to load graveyard";
+          setError(msg);
+        }
       }
     }
 
